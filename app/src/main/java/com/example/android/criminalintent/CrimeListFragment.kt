@@ -7,22 +7,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_crime_list.*
 import kotlinx.android.synthetic.main.fragment_crime_list.view.*
-import kotlinx.android.synthetic.main.list_item_crime.*
 import kotlinx.android.synthetic.main.list_item_crime.view.*
+import java.text.DateFormat
 
 private const val TAG = "CrimeListFragment"
 
 class CrimeListFragment : Fragment() {
 
     private var adapter: CrimeAdapter? = null
-    private lateinit var crimeRecyclerView: RecyclerView
 
     private val crimeListViewModel: CrimeListViewModel by lazy {
         ViewModelProviders.of(this).get(CrimeListViewModel::class.java)
@@ -68,7 +65,13 @@ class CrimeListFragment : Fragment() {
         fun bind(crime: Crime) {
             this.crime = crime
             itemView.crime_title.text = crime.title
-            itemView.crime_date.text = crime.date.toString()
+            itemView.crime_date.text = DateFormat.getDateInstance(DateFormat.FULL).format(crime.date)
+
+            itemView.crime_solved.visibility = if (crime.isSolved) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
 
         override fun onClick(v: View) {
