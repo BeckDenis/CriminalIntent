@@ -1,25 +1,25 @@
 package com.example.android.criminalintent.screens.crimeDetail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import com.example.android.criminalintent.CrimeRepository
-import com.example.android.criminalintent.database.Crime
-import java.util.*
 
-class CrimeDetailViewModel : ViewModel() {
-    private val crimeRepository = CrimeRepository.get()
-    private val crimeIdLiveData = MutableLiveData<UUID>()
-    var crimeLiveData: LiveData<Crime?> =
-        Transformations.switchMap(crimeIdLiveData) { crimeId ->
-            crimeRepository.getCrime(crimeId)
+import androidx.lifecycle.ViewModel
+import com.example.android.criminalintent.database.Crime
+import com.example.android.criminalintent.database.CrimeDao
+import kotlinx.coroutines.*
+
+class CrimeDetailViewModel(val database: CrimeDao, private val crimeId: Long) : ViewModel() {
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    val crime = database.getCrime(crimeId)
+
+    fun updatePlayer(crime: Crime) {
+        uiScope.launch {
+            update(crime)
         }
-    fun loadCrime(crimeId: UUID) {
-        crimeIdLiveData.value = crimeId
     }
 
-    fun saveCrime(crime: Crime) {
-        crimeRepository.updateCrime(crime)
+    private suspend fun update(crime: Crime) {
+        withContext(Dispatchers.IO) {
+            database.updateCrime(crime)
+        }
     }
 }

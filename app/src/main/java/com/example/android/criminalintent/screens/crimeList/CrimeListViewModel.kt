@@ -1,10 +1,10 @@
 package com.example.android.criminalintent.screens.crimeList
 
 import androidx.lifecycle.ViewModel
-import com.example.android.criminalintent.CrimeRepository
+import com.example.android.criminalintent.database.Crime
+import com.example.android.criminalintent.database.CrimeDao
+import kotlinx.coroutines.*
 
-class CrimeListViewModel : ViewModel() {
-    private val crimeRepository =
-        CrimeRepository.get()
-    val crimeListLiveData = crimeRepository.getCrimes()
+class CrimeListViewModel(val database: CrimeDao) : ViewModel() {
+    val crimes = database.getCrimes()
 }
