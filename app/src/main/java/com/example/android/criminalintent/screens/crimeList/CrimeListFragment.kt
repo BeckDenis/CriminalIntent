@@ -93,14 +93,8 @@ class CrimeListFragment : Fragment() {
         fun bind(crime: Crime) {
             this.crime = crime
             itemView.crime_title.text = crime.title
-            itemView.crime_date.text =
-                DateFormat.getDateInstance(DateFormat.FULL).format(crime.date)
-
-            itemView.crime_solved.visibility = if (crime.isSolved) {
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
+            itemView.crime_date.text = DateFormat.getDateInstance(DateFormat.FULL).format(crime.date)
+            itemView.crime_solved.visibility = if (crime.isSolved) View.VISIBLE else View.GONE
         }
 
         override fun onClick(v: View) {
@@ -122,6 +116,4 @@ class CrimeListFragment : Fragment() {
             holder.bind(crime)
         }
     }
-
-
 }
