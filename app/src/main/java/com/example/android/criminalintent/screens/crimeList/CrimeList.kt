@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.criminalintent.R
 import com.example.android.criminalintent.database.Crime
 import kotlinx.android.synthetic.main.list_item_crime.view.*
+import java.text.DateFormat
 
 class CrimeHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(crime: Crime) {
         itemView.crime_title.text = crime.title
-        itemView.crime_date.text = crime.date
+        itemView.crime_date.text = DateFormat.getDateInstance(DateFormat.FULL).format(crime.date)
         itemView.crime_solved.visibility = if (crime.isSolved) {
             View.VISIBLE
         } else {

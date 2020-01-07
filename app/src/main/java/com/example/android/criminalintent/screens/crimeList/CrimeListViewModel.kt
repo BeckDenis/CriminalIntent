@@ -7,4 +7,25 @@ import kotlinx.coroutines.*
 
 class CrimeListViewModel(val database: CrimeDao) : ViewModel() {
     val crimes = database.getCrimes()
+
+//    private val viewModelJob = Job()
+//    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+//
+//    init {
+//        repeat(10) {
+//            addCrime()
+//        }
+//    }
+//
+//    private fun addCrime() {
+//        uiScope.launch {
+//            insertCrime()
+//        }
+//    }
+//
+//    private suspend fun insertCrime() {
+//        withContext(Dispatchers.IO) {
+//            database.addCrime(Crime(title = "title"))
+//        }
+//    }
 }

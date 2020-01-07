@@ -13,6 +13,7 @@ import com.example.android.criminalintent.R
 import com.example.android.criminalintent.database.Crime
 import com.example.android.criminalintent.database.CrimeDatabase
 import kotlinx.android.synthetic.main.fragment_crime_detail.*
+import java.text.DateFormat
 
 class CrimeFragment : Fragment() {
     private lateinit var crime: Crime
@@ -73,7 +74,7 @@ class CrimeFragment : Fragment() {
 
     private fun updateUI() {
         crime_title.setText(crime.title)
-        crime_date.text = crime.date
+        crime_date.text = DateFormat.getDateInstance(DateFormat.FULL).format(crime.date)
         crime_solved.isChecked = crime.isSolved
     }
 }

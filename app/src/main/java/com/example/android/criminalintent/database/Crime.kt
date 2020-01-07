@@ -15,7 +15,7 @@ data class Crime(
     var title: String = "",
 
     @ColumnInfo(name = "date")
-    var date: String = DateFormat.getDateInstance(DateFormat.FULL).format(Date()),
+    var date: Date = Date(),
 
     @ColumnInfo(name = "solved")
     var isSolved: Boolean = false

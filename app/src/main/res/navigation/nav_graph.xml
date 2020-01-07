@@ -11,7 +11,7 @@
         android:label="CrimeListFragment"
         tools:layout="@layout/fragment_crime_list">
         <action
-            android:id="@+id/action_crimeListFragment_to_crimeDetailFragment"
+            android:id="@+id/action_crimeList_to_crimeDetail"
             app:destination="@id/crimeDetailFragment" />
     </fragment>
     <fragment
