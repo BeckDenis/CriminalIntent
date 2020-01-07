@@ -27,7 +27,7 @@ class CrimeAdapter(val clickListener:(Crime) -> Unit) : ListAdapter<Crime, Crime
 
     companion object DiffCallback : DiffUtil.ItemCallback<Crime>() {
         override fun areItemsTheSame(oldItem: Crime, newItem: Crime): Boolean {
-            return oldItem === newItem
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: Crime, newItem: Crime): Boolean {
@@ -35,21 +35,13 @@ class CrimeAdapter(val clickListener:(Crime) -> Unit) : ListAdapter<Crime, Crime
         }
     }
 
-    var data =  listOf<Crime>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            : CrimeHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_crime, parent, false)
         return CrimeHolder(view)
     }
 
-    override fun getItemCount() = data.size
     override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
-        val crime = data[position]
+        val crime = getItem(position)
         holder.itemView.setOnClickListener { clickListener(crime) }
         holder.bind(crime)
     }

@@ -12,13 +12,7 @@ class CrimeListViewModel(val database: CrimeDao) : ViewModel() {
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    init {
-        repeat(10) {
-            addCrime()
-        }
-    }
-
-    private fun addCrime() {
+    fun addCrime() {
         uiScope.launch {
             insertCrime()
         }
