@@ -16,6 +16,8 @@ import com.example.android.criminalintent.database.CrimeDatabase
 import com.example.android.criminalintent.shareViewModels.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_crime_detail.*
 import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CrimeFragment : Fragment() {
     private lateinit var crime: Crime
@@ -53,6 +55,7 @@ class CrimeFragment : Fragment() {
             Observer { crime ->
                 crime?.let {
                     this.crime = crime
+                    model.select(crime.date)
                     updateUI()
                 }
             })
@@ -76,8 +79,11 @@ class CrimeFragment : Fragment() {
         }
 
         crime_date.setOnClickListener {
-            model.select(crime.date)
             findNavController().navigate(R.id.datePickerFragment)
+        }
+
+        crime_time.setOnClickListener {
+            findNavController().navigate(R.id.timePickerFragment)
         }
     }
 
@@ -90,6 +96,7 @@ class CrimeFragment : Fragment() {
     private fun updateUI() {
         crime_title.setText(crime.title)
         crime_date.text = DateFormat.getDateInstance(DateFormat.FULL).format(crime.date)
+        crime_time.text = DateFormat.getTimeInstance(DateFormat.SHORT).format(crime.date)
         crime_solved.isChecked = crime.isSolved
     }
 }

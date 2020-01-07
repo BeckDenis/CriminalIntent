@@ -22,12 +22,13 @@
         <argument
             android:name="crimeId"
             app:argType="long" />
-        <action
-            android:id="@+id/action_crimeDetail_to_datePicker"
-            app:destination="@id/datePickerFragment" />
     </fragment>
     <dialog
         android:id="@+id/datePickerFragment"
         android:name="com.example.android.criminalintent.screens.datePicker.DatePickerFragment"
         android:label="DatePickerFragment" />
+    <dialog
+        android:id="@+id/timePickerFragment"
+        android:name="com.example.android.criminalintent.screens.datePicker.TimePickerFragment"
+        android:label="TimePickerFragment" />
 </navigation>

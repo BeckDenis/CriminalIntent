@@ -13,14 +13,22 @@ class DatePickerFragment : DialogFragment() {
     private lateinit var model: SharedViewModel
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        val dateListener = DatePickerDialog.OnDateSetListener {
-                _: DatePicker, year: Int, month: Int, day: Int ->
-            model.select(GregorianCalendar(year, month, day).time)
-        }
-
         model = activity?.run {
             ViewModelProviders.of(this)[SharedViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
+
+        val dateListener =
+            DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
+                val date = model.selected.value ?: Date()
+                val calendar = Calendar.getInstance()
+                calendar.run {
+                    time = date
+                    set(Calendar.YEAR, year)
+                    set(Calendar.MONTH, month)
+                    set(Calendar.DAY_OF_MONTH, day)
+                }
+                model.select(calendar.time)
+            }
 
         val date = model.selected.value ?: Date()
         val calendar = Calendar.getInstance()

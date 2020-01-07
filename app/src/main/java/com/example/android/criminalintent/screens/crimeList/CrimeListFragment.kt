@@ -52,10 +52,6 @@ class CrimeListFragment : Fragment() {
             }
         })
 
-
-
-
-
         return view
     }
 }
