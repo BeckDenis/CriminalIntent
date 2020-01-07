@@ -12,10 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.android.criminalintent.R
 import com.example.android.criminalintent.database.Crime
+import com.example.android.criminalintent.screens.datePicker.DatePickerFragment
 import kotlinx.android.synthetic.main.fragment_crime_detail.*
 import java.util.*
 
 private const val TAG = "CrimeFragment"
+private const val DIALOG_DATE = "DialogDate"
 private const val ARG_CRIME_ID = "crime_id"
 
 class CrimeFragment : Fragment() {
@@ -84,6 +86,12 @@ class CrimeFragment : Fragment() {
         crime_solved.apply {
             setOnCheckedChangeListener { _, isChecked ->
                 crime.isSolved = isChecked
+            }
+        }
+
+        crime_date.setOnClickListener {
+            DatePickerFragment().apply {
+                show(this@CrimeFragment.requireFragmentManager(), DIALOG_DATE)
             }
         }
     }
