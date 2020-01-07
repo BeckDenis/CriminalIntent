@@ -12,9 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.criminalintent.R
 import com.example.android.criminalintent.database.CrimeDatabase
+import com.example.android.criminalintent.shareViewModels.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_crime_list.view.*
 
 class CrimeListFragment : Fragment() {
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +30,9 @@ class CrimeListFragment : Fragment() {
         val viewModelFactory = CrimeListViewModelFactory(dataSource)
         val viewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(CrimeListViewModel::class.java)
+
+
+
         val crimeAdapter = CrimeAdapter {
             findNavController().navigate(
                 CrimeListFragmentDirections.actionCrimeListToCrimeDetail(
@@ -45,6 +51,10 @@ class CrimeListFragment : Fragment() {
                 crimeAdapter.data = it
             }
         })
+
+
+
+
 
         return view
     }

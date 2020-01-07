@@ -6,21 +6,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.android.criminalintent.R
 import com.example.android.criminalintent.database.Crime
 import com.example.android.criminalintent.database.CrimeDatabase
+import com.example.android.criminalintent.shareViewModels.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_crime_detail.*
 import java.text.DateFormat
 
 class CrimeFragment : Fragment() {
     private lateinit var crime: Crime
     private lateinit var viewModel: CrimeDetailViewModel
+    private lateinit var model: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        model = activity?.run {
+            ViewModelProviders.of(this)[SharedViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
         crime = Crime()
     }
 
@@ -50,6 +56,14 @@ class CrimeFragment : Fragment() {
                     updateUI()
                 }
             })
+        model.selected.observe(
+            viewLifecycleOwner,
+            Observer { date ->
+                date?.let {
+                    crime.date = date
+                    updateUI()
+                }
+            })
     }
 
     override fun onStart() {
@@ -62,6 +76,7 @@ class CrimeFragment : Fragment() {
         }
 
         crime_date.setOnClickListener {
+            model.select(crime.date)
             findNavController().navigate(R.id.datePickerFragment)
         }
     }
