@@ -6,7 +6,7 @@ import com.example.android.criminalintent.database.Crime
 import com.example.android.criminalintent.database.CrimeDao
 import kotlinx.coroutines.*
 
-class CrimeDetailViewModel(val database: CrimeDao, private val crimeId: Long) : ViewModel() {
+class CrimeDetailViewModel(val database: CrimeDao, crimeId: Long) : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val crime = database.getCrime(crimeId)

@@ -15,6 +15,9 @@ interface CrimeDao {
     @Query("SELECT * FROM crime WHERE id = :key")
     fun getCrime(key: Long): LiveData<Crime?>
 
+    @Query("SELECT * FROM crime ORDER BY id DESC LIMIT 1")
+    fun getLastCrime(): Crime?
+
     @Update
     fun updateCrime(crime: Crime)
 

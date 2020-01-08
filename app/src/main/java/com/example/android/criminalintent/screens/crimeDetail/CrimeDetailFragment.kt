@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -16,8 +15,6 @@ import com.example.android.criminalintent.database.CrimeDatabase
 import com.example.android.criminalintent.shareViewModels.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_crime_detail.*
 import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 class CrimeFragment : Fragment() {
     private lateinit var crime: Crime

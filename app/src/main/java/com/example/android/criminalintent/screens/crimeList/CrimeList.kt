@@ -23,7 +23,8 @@ class CrimeHolder(view: View) : RecyclerView.ViewHolder(view) {
     }
 }
 
-class CrimeAdapter(val clickListener:(Crime) -> Unit) : ListAdapter<Crime, CrimeHolder>(DiffCallback) {
+class CrimeAdapter(val clickListener: (Crime) -> Unit) :
+    ListAdapter<Crime, CrimeHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Crime>() {
         override fun areItemsTheSame(oldItem: Crime, newItem: Crime): Boolean {
@@ -35,14 +36,26 @@ class CrimeAdapter(val clickListener:(Crime) -> Unit) : ListAdapter<Crime, Crime
         }
     }
 
+    fun addHeaderAndSubmitList(list: List<Crime>?) {
+        val items = when (list) {
+            null -> listOf(Crime(id = -1))
+            else -> listOf(Crime(id = -1)) + list.reversed()
+        }
+        submitList(items)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CrimeHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_crime, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
         return CrimeHolder(view)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) R.layout.header else R.layout.list_item_crime
     }
 
     override fun onBindViewHolder(holder: CrimeHolder, position: Int) {
         val crime = getItem(position)
         holder.itemView.setOnClickListener { clickListener(crime) }
-        holder.bind(crime)
+        if (position != 0) holder.bind(crime)
     }
 }
