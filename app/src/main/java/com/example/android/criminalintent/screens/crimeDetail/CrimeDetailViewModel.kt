@@ -11,7 +11,7 @@ class CrimeDetailViewModel(val database: CrimeDao, crimeId: Long) : ViewModel() 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     val crime = database.getCrime(crimeId)
 
-    fun updatePlayer(crime: Crime) {
+    fun updateCrime(crime: Crime) {
         uiScope.launch {
             update(crime)
         }

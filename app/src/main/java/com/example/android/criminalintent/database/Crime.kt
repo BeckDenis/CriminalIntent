@@ -18,5 +18,8 @@ data class Crime(
     var date: Date = Date(),
 
     @ColumnInfo(name = "solved")
-    var isSolved: Boolean = false
+    var isSolved: Boolean = false,
+
+    @ColumnInfo(name = "suspect")
+    var suspect: String = ""
 )
