@@ -13,8 +13,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 @TypeConverters(CrimeTypeConverters::class)
 abstract class CrimeDatabase : RoomDatabase() {
 
-
-
     abstract val crimeDatabaseDao: CrimeDao
 
     companion object {
@@ -32,19 +30,11 @@ abstract class CrimeDatabase : RoomDatabase() {
                         CrimeDatabase::class.java,
                         "crime_history_database"
                     )
-                        .addMigrations(migration_2_3)
+                        .fallbackToDestructiveMigration()
                         .build()
                     INSTANCE = instance
                 }
                 return instance
-            }
-        }
-
-        private val migration_2_3 = object : Migration(2, 3) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL(
-                    "ALTER TABLE Crime ADD COLUMN suspect TEXT NOT NULL DEFAULT ''"
-                )
             }
         }
     }

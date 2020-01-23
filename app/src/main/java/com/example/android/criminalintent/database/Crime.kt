@@ -22,4 +22,7 @@ data class Crime(
 
     @ColumnInfo(name = "suspect")
     var suspect: String = ""
-)
+) {
+    val photoFileName
+        get() = "IMG_$id.jpg"
+}
